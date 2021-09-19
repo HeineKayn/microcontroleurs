@@ -1,18 +1,20 @@
-#include "stm32f10x.h"
+#include "Driver_GPIO.h"
+
 int main(void){
-	RCC->APB2ENR |= (0x01 << 2) | (0x01 << 3) | (0x01 << 4) ;
+	// Initialisation des horloges des GPIO
+	Driver_Init();
 	
-	GPIOA->CRL &= ~(0xf << 5*4);
-	GPIOA->CRL |= (2 << 5*4);
-	
-	GPIOC->CRH &= ~(0xf << 5*4);
-	GPIOC->CRH |= (4 << 5*4);
+	// Initialisation de la PA5 (LED) en Output Push/Pull
+	GPIO_Init(GPIOA, 5, Out_Ppull_2MHZ);
+	// Initialisation de la PC13 (Bouton) en Floating Input
+	GPIO_Init(GPIOC, 13, In_Floating);
+
 	while(1) {
-		if (((GPIOC->IDR >> 13) & 1) == 0) {
-			GPIOA->ODR |= (1 << 5);
+		if (GPIO_Read(GPIOC, 13) == 0) {
+			GPIO_Set(GPIOA, 5);
 		} 
 		else {
-			GPIOA->ODR &= ~(1 << 5);
+			GPIO_Reset(GPIOA, 5);
 		}
 	}
 }	
