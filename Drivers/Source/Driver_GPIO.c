@@ -1,11 +1,16 @@
 #include "stm32f10x.h"
 #include "Driver_GPIO.h"
 
-void Driver_Init(void) {
-	RCC->APB2ENR |= (0x01 << 2) | (0x01 << 3) | (0x01 << 4) ;
-}
-
 void GPIO_Init (GPIO_TypeDef * GPIO, char PIN, char CONF){
+	if (GPIO == GPIOA)
+		RCC->APB2ENR |= RCC_APB2ENR_IOPAEN;
+	else if (GPIO == GPIOB)
+		RCC->APB2ENR |= RCC_APB2ENR_IOPBEN;
+	else if (GPIO == GPIOC)
+		RCC->APB2ENR |= RCC_APB2ENR_IOPCEN;
+	else
+		RCC->APB2ENR |= RCC_APB2ENR_IOPDEN;
+	
   if (PIN < 8){
      GPIO->CRL &= ~(0xf << PIN*4);
      GPIO->CRL |= (CONF << PIN*4); 

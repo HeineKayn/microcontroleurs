@@ -26,8 +26,6 @@
 #define AltOut_Ppull_50MHZ 0xB
 #define AltOut_OD_50MHZ 0xF
 
-// Initialisation des horloges GPIO, doit être lancée avant toutes les autres fonctions
-void Driver_Init(void);
 // Initialisation d'une PIN d'un GPIO à la CONF souhaitée
 void GPIO_Init (GPIO_TypeDef * GPIO, char PIN, char CONF);
 // Lecture d'un bit de l'IDR du GPIO correspondant à la PIN choisie
