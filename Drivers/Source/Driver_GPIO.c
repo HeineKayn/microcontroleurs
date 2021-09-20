@@ -21,11 +21,11 @@ int GPIO_Read(GPIO_TypeDef * GPIO, char PIN){
 }
 
 void GPIO_Set(GPIO_TypeDef * GPIO, char PIN){
-	GPIO->ODR |= (1 << PIN);
+	GPIO->BSRR = (1 << PIN);
 }
 
 void GPIO_Reset(GPIO_TypeDef * GPIO, char PIN){
-	GPIO->ODR &= ~(1 << PIN);
+	GPIO->BRR = (1 << PIN);
 }
 
 void GPIO_Toggle(GPIO_TypeDef * GPIO, char PIN) {
