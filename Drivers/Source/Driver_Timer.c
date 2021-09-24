@@ -34,19 +34,19 @@ void Timer_ActiveIT(TIM_TypeDef * Timer, char Prio, void(*IT_function )(void)) {
 	// Attribution de l'adresse de l'interrupteur qau ointeur de fonction correspondant
 	if (Timer == TIM1) {
 		NVIC->ISER[0]|= 1 << 25;
-		NVIC->IP[25] = Prio;
+		NVIC->IP[25] = (Prio << 4);
 		Timer1_Interupt = IT_function;
 	} else if (Timer == TIM2) {
 		NVIC->ISER[0] = 1 << 28;
-		NVIC->IP[28] = Prio;
+		NVIC->IP[28] = (Prio << 4);
 		Timer2_Interupt = IT_function;
 	} else if (Timer == TIM3) {
 		NVIC->ISER[0] = 1 << 29;
-		NVIC->IP[29] = Prio;
+		NVIC->IP[29] = (Prio << 4);
 		Timer3_Interupt = IT_function;
 	} else {
 		NVIC->ISER[0] = 1 << 30;
-		NVIC->IP[30] = Prio;
+		NVIC->IP[30] = (Prio << 4);
 		Timer4_Interupt = IT_function;
 	}
 	
