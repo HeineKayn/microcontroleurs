@@ -34,7 +34,7 @@ void GPIO_Reset(GPIO_TypeDef * GPIO, char PIN){
 }
 
 void GPIO_Toggle(GPIO_TypeDef * GPIO, char PIN) {
-	if ((GPIO->ODR >> PIN) == 0) {
+	if (((GPIO->ODR >> PIN) & 1) == 0) {
 		GPIO_Set(GPIO, PIN);
 	} else {
 		GPIO_Reset(GPIO, PIN);
