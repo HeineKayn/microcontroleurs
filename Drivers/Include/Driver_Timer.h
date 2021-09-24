@@ -5,5 +5,6 @@
 void Timer_Base_Init (TIM_TypeDef * Timer, unsigned short ARR, unsigned short PSC);
 void Timer_Base_Start (TIM_TypeDef * Timer);
 void Timer_Base_Stop (TIM_TypeDef * Timer);
+void Timer_ActiveIT(TIM_TypeDef * Timer, char Prio, void(*IT_function )(void));
 
 #endif
