@@ -1,4 +1,5 @@
 #include "Driver_Timer.h"
+#include "Driver_GPIO.h"
 
 // Pointeurs de fonctions d'interruption
 void (*Timer1_Interupt)(void) = 0;
@@ -52,6 +53,55 @@ void Timer_ActiveIT(TIM_TypeDef * Timer, char Prio, void(*IT_function )(void)) {
 	
 	// Autorisation des demandes d'interruption 
 	Timer->DIER |= 0x1;
+}
+
+void Timer_PWM(TIM_TypeDef * Timer, char Channel) {
+	// Activation de la PWM du channel spécifié
+	switch (Channel) {
+		case 1:
+			Timer->CCMR1 |= (6 << 4);
+			Timer->CCER |= (1 << 0);
+			break;
+		case 2:
+			Timer->CCMR1 |= (6 << 12);
+			Timer->CCER |= (1 << 4);
+			break;
+		case 3:
+			Timer->CCMR2 |= (6 << 4);
+			Timer->CCER |= (1 << 8);
+			break;
+		case 4:
+			Timer->CCMR2 |= (6 << 12);
+			Timer->CCER |= (1 << 12);
+			break;
+		default:
+			return;
+	}
+	
+	// Configuration supplémentaire pour TIM1
+	if (Timer == TIM1) {
+		Timer->BDTR |= (1 << 15);
+	}
+}
+
+void Timer_Set_Cycle_PWM(TIM_TypeDef * Timer, char Channel, char Percent) {
+	uint16_t CCR = (Percent*Timer->ARR)/100;
+	switch (Channel) {
+		case 1:
+			Timer->CCR1 = CCR;
+			break;
+		case 2:
+			Timer->CCR2 = CCR;
+			break;
+		case 3:
+			Timer->CCR3 = CCR;
+			break;
+		case 4:
+			Timer->CCR4 = CCR;
+			break;
+		default:
+			break;
+	}
 }
 
 void TIM1_UP_IRQHandler (void) {
