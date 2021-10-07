@@ -24,19 +24,19 @@ int main(void){
 	
 	/* ------------------- */	
 
-	// Initialisation du Timer 2 (100kHz)
-	Timer_Base_Init(TIM2, 719, 0);
+	// Initialisation du Timer 4 (100kHz)
+	Timer_Base_Init(TIM4, 719, 0);
 	
-	// Initialisation de la pin 2 du GPIO A
-	GPIO_Init(GPIOA, 2, AltOut_Ppull_2MHZ);
+	// Initialisation de la pin 6 du GPIO B
+	GPIO_Init(GPIOB, 6, AltOut_Ppull_2MHZ);
 	
-	// Initialisation de la PWM sur le channel 3 du Timer 2
-	Timer_PWM(TIM2, 3);
+	// Initialisation de la PWM sur le channel 1 du Timer 4
+	Timer_PWM(TIM4, 1);
 	
 	// Etablissement du rapport cyclique à 20%
-	Timer_Set_Cycle_PWM(TIM2, 3, 20);
+	Timer_Set_Cycle_PWM(TIM4, 1, 20);
 	
 	// Lancement du compteur
-	Timer_Base_Start(TIM2);
+	Timer_Base_Start(TIM4);
 	while(1);
 }	
