@@ -5,6 +5,4 @@ void ADC_Init (ADC_TypeDef * ADC) {
 		RCC->APB2ENR |= RCC_APB2ENR_ADC1EN;
 	else if (ADC == ADC2)
 		RCC->APB2ENR |= RCC_APB2ENR_ADC2EN;
-	
-	
 }
