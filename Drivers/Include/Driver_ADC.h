@@ -16,6 +16,14 @@
 #define ADC_Regular_Group 1
 #define ADC_Injected_Group 0
 
+// Modes de l'ADC
+#define ADC_Mode_Single_Conversion 1
+#define ADC_Mode_Continuous_Conversion 0
+
+/*
+ * Fonctions générales
+ */
+
 // Initialisation d'un ADC
 void ADC_Init (ADC_TypeDef * ADC);
 // Attribution d'un channel à un groupe
@@ -24,10 +32,23 @@ void ADC_Add_Channel (ADC_TypeDef * ADC, char Channel, char Group);
 void ADC_Remove_Channel (ADC_TypeDef * ADC, char Channel);
 // Choix du mode de l'ADC
 void ADC_Mode (ADC_TypeDef * ADC, char Mode);
+// Mise en place de l'interruption de l'ADC
+void ADC_ActiveIT(ADC_TypeDef * ADC, char Prio, void(*IT_function )(void));
+// Activation de l'interuption pour le groupe choisi
+void ADC_ActiveIT_Group(ADC_TypeDef * ADC, char Group);
 // Configuration du temps d'échantillonnage de l'ADC
 // Renvoie la durée totale de conversion
 float ADC_Sampling_Time (ADC_TypeDef * ADC, char Channel, char SMP);
 // Récupération du registre du groupe choisi
 int ADC_Result (ADC_TypeDef * ADC, char Group);
+ 
+/*
+ * Fonctions single mode
+ */
+ // 
+ 
+ /*
+ * Fonctions continuous mode
+ */
 
 #endif
